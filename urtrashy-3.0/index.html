@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--  Meta  -->
+    <meta charset="UTF-8" />
+    <title>UR Trashy</title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/with-white.png" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--  Styles  -->
+    <link id="current-style" rel="stylesheet" href="styles/light.css" />
+    <link id="current-style" rel="stylesheet" href="styles/webcam.css" />
+    <link rel="stylesheet" href="styles/all.min.css" />
+    <!--  Font Awesome  -->
+
+    <!-- Select2 + JQuery-->
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-css/1.4.6/select2-bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" />
+
+</head>
+
+<body id="reload">
+    <!-- Home page w/o anything getting clicked-->
+    <div id="main">
+        <!-- Stuff at the very top-->
+        <img src="assets/logo.svg" class="tiniest-logo-img" alt="logo" onclick="openToggle('#about-page')" />
+        <!-- Greeting to user -->
+        <div id="hey-there" style="display: inline">
+            <span id="greeting"></span
+        ><span id="user-name" style="display: inline"></span><span id="end-greeting">!</span>
+        </div>
+
+        <div class="center">
+            <div class="smaller-circle">
+                <img id="small-circle" src="assets/smaller-circle.svg" alt="smaller circle" />
+                <div class="centered-text">
+                    <span id="recent-points"></span>
+                    <div style="width: 75%; margin-left: 20px">
+                        points gained recently
+                    </div>
+                </div>
+            </div>
+            <div class="bigger-circle">
+                <img id="big-circle" src="assets/bigger-circle.svg" alt="bigger circle" />
+                <div class="centered-text">
+                    <span id="points"></span>
+                    <div>points and counting</div>
+                </div>
+            </div>
+
+            <div id="pop-up" style="display: none;">
+                <i class="far fa-times-circle" onclick="closeEverything()"></i>
+                <!-- All stats stuff-->
+                <div id="stats-main" style="display:none;">
+                    <div class="center">
+                        <div class="text" style="position: absolute; width: 75%; font-weight: 500; font-size: 20px; top: 20%;">Which stats do you want to view?</div>
+
+                        <div style="position: absolute; top: 40%; display: flex; flex-direction: row; gap: 40px">
+                            <button onclick="openTop()">Top Trash</button>
+                            <button onclick="openRecent()">Recent Trash</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="stats-top" style="display:none;">
+                    <div class="center">
+                        <button style="position: absolute; left: 10%; top: 10%;" onclick="closeTop()">Back</button>
+                        <div class="text" style="position: absolute; width: 75%; font-weight: 600; font-size: 25px; top: 13%; left: 40%;">Top Stats</div>
+                        <pre id="top-trash" style="position: absolute; top: 22.5%;"></pre>
+                    </div>
+                </div>
+                <div id="stats-recent" style="display:none;">
+                    <div class="center">
+                        <button onclick="closeRecent()" style="position: absolute; left: 10%; top: 10%;">Back</button>
+                        <div class="text" style="position: absolute; width: 75%; font-weight: 600; font-size: 25px; top: 13%; left: 40%;">Recent Stats</div>
+                        <pre id="recent-trash" style="position: absolute; top: 22.5%;"></pre>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div id="settings-main" style="display: none;">
+                    <div class="center">
+                        <div class="text" style="position: absolute; width: 75%; font-weight: 600; font-size: 25px; top:8%; left: 37.5%;">Settings</div>
+                        <!-- Change name button -->
+                        <button id="name-button" style="position: absolute; top: 20%;" onclick="openName()">Change name</button>
+                        <!-- Stuff for changing name-->
+                        <div id="settings-name" style="display: none; position: absolute; top: 20%; right: 10%;">
+                            <input id="name-field"></input>
+                            <button onclick="changeName()">Update</button>
+                        </div>
+                        <span id="invalid" style="display: none; color:rgb(214, 61, 61); position: absolute; top: 15.5%; font-size: 12px;">Invalid name. Try again.</span>
+
+                        <!-- Other buttons -->
+                        <button onclick="toggleMode()" style="position: absolute; top: 35%;">Toggle to <i id="current-mode" class="fas fa-moon"></i></button>
+                        <button onclick="openDelete()" style="color:rgb(218, 98, 98);  position: absolute; top: 50%;">Delete account</button>
+                    </div>
+                </div>
+                <div id="settings-delete" style="display: none;">
+                    <div class="center">
+                        <div class="text" style="position: absolute; width: 75%; font-weight: 500; font-size: 20px; top: 20%;">Would you like to permanently delete your account?</div>
+                        <div style="position: absolute; top: 40%; display: flex; flex-direction: row; gap: 40px">
+                            <button onclick="deleteAccount()" style="color:rgb(218, 98, 98);">Yes</button>
+                            <button onclick="closeDelete()">No</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Tool bar -->
+            <div class="tab">
+                <button id="home-button" class="active" onclick="closeEverything()"><i class="fas fa-home"></i></button
+          ><button id="stats-button" onclick="openStats()"><i class="fas fa-chart-bar"></i></button>
+                <button class="special" onclick="openRecycle()">
+            <i class="fas fa-recycle"></i>
+          </button>
+                <button id="settings-button" onclick="openSettings()"><i class="fas fa-cog"></i></button>
+                <button onclick="logOut()"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About page-->
+    <div class="sub-page" id="about-page">
+        <div id="about-main">
+            <button class="back" onClick="closeToggle('#about-page')">Back</button>
+            <div class="center">
+                <div style="width: 75%">
+                    <div class="text">
+                        Your trash.
+                        <span class="ever-better">Ever better.</span>
+                    </div>
+                    <div class="smaller-text">
+                        An interactive, gamified learning system aimed to improve UR waste management habits.
+                    </div>
+                </div>
+
+                <button onClick="hideAbout()">Our Team</button>
+            </div>
+        </div>
+        <div id="our-team" style="display: none">
+            <button class="back" onClick="showAbout()">Back</button>
+            <div class="center" style="text-align: left">
+
+                <div class="text" style="margin-bottom: 30%;">Our <span class="ever-better">team</span></div>
+                <div style="justify-content: left; align-items: left;">
+                    <!-- Sid -->
+                    <div class="row center" style="margin-bottom: 5%;">
+                        <img src="assets/sid.png" alt="Sid">
+                        <div class="smaller-text">
+                            <span style="white-space: nowrap; font-weight: 600;">Sidhant Bendre</span>
+                            <span style="display: block; color: white; white-space: nowrap">Machine Learning</span>
+                        </div>
+                    </div>
+                    <!-- Sarah -->
+                    <div class="row center">
+                        <img src="assets/sarah.png" alt="Sarah">
+                        <div class="smaller-text"><span style="white-space: nowrap; font-weight: 600;">Syeda Shahrin</span><span style="display: block; color: white; white-space: nowrap">Backend</span></div>
+                    </div class="row">
+                    <!-- Mary -->
+                    <div class="row center" style="margin-top: 5%;">
+                        <img src="assets/mary.png" alt="Mary">
+                        <div class="smaller-text"><span style="white-space: nowrap; font-weight: 600;">Mary Vuong</span><span style="display: block; color: white; white-space: nowrap">Frontend</span></div>
+                    </div>
+                </div>
+
+                <button style="margin-top: 30%" onclick="window.location.href='mailto:urtrashy@greenmail.net'">
+            Contact Us
+          </button>
+                <div class="smaller-text" style="margin-top: 10%; font-size: 12px; color: white;">E-mail us at: urtrashy@greenmail.net</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recycle page -->
+    <div class="sub-page" id="recycle-page">
+        <div id="recycle-main">
+            <button class="back" onClick="closeToggle('#recycle-page')">
+          Back
+        </button>
+            <div class="center" style="text-align: left">
+                <div class="text">How do you want to recycle?</div>
+                <button onClick="hideMain()">Select Trash</button>
+                <button onClick="hideMainWizard()">Trash Wizard</button>
+                <!-- Temporarily hidden until we have ML-->
+            </div>
+        </div>
+
+        <!-- Trash wizard stuff -->
+        <div id="recycle-wizard">
+            <button class="back" onClick="showMainWizard()">Back</button>
+            <div class="center" style="text-align: left">
+                <div class="text" style="margin-top: 15%;">Take a photo of your trash!</div>
+
+                <!-- User's camera -->
+                <div id="video-container"></div>
+                <video autoplay="true" id="videoElement">
+
+                </video>
+
+                <button style="margin-top: 15%" onClick="showResultsWizard()">Trash It!</button>
+            </div>
+        </div>
+
+        <!-- Dropdown list stuff -->
+        <div id="select-trash">
+            <button class="back" onClick="showMain()">Back</button>
+            <div class="center" style="text-align: left">
+                <div class="text">What do you want to trash?</div>
+                <select class="Recycleables" name="Recycleables" id="Recycleables" multiple="multiple" data-maximum-selection-length="9">
+            <option>Air conditioner, microwave, or TV</option>
+            ...
+            <option>Aluminum foil/foilware</option>
+            ...
+            <option>Auto glass</option>
+            ...  
+            <option>Batteries (non-rechargeable)</option>
+            ...
+            <option>Batteries (rechargeable, alkaline)</option>
+            ...
+            <option>Batteries (rechargeable, non-alkaline)</option>
+            ...
+            <option>Beer can</option>
+            ...
+            <option>Boxboard</option>
+            ...
+            <option>Branches larger than 4in in diameter</option>
+            ...
+            <option>Branches smaller than 4in in diameter</option>
+            ...
+            <option>Broken glass</option>
+            ...
+            <option>Bubble wrap</option>
+            ...
+            <option>Can made from steel, tin, and/or aluminum</option>
+            ...
+            <option>Cardboard box w/ wax coating</option>
+            ...
+            <option>Cardboard box w/o wax coating (> 2ft x 4ft)</option>
+            ...
+            <option>Cardboard box w/o wax coating (< 2ft x 4ft)</option>
+            ...
+            <option>Cardboard carton w/ cap attached</option>
+            ...
+            <option>Cardboard carton w/o cap attached</option>
+            ...
+            <option>Cardboard carton cap (detached)</option>
+            ...
+            <option>Ceramic</option>
+            ...
+            <option>Chemicals</option>
+            ...
+            <option>Clean beverage container</option>
+            ...
+            <option>Clean non-Pyrex food glass container</option>
+            ...
+            <option>Cleaning product</option>
+            ...
+            <option>Clothes hanger</option>
+            ...
+            <option>Clothing</option>
+            ...
+            <option>Construction and demolition debris</option>
+            ...
+            <option>Dirty beverage container</option>
+            ...
+            <option>Dirty food glass container</option>
+            ...
+            <option>Disposable diapers</option>
+            ...
+            <option>Drinking glass</option>
+            ...
+            <option>Drinking cup</option>
+            ...
+            <option>Drink/Soup box</option>
+            ...
+            <option>Empty aerosol container (pesticides/paints)</option>
+            ...
+            <option>Empty aerosol container (non-pesticides/paints)</option>
+            ...
+            <option>Envelope</option>
+            ...
+            <option>Expired/unused medicines</option>
+            ...
+            <option>Eyeglasses</option>
+            ...
+            <option>Flat glass</option>
+            ...
+            <option>Fluorescent light tube</option>
+            ...
+            <option>Fluorescent lamp</option>
+            ...
+            <option>Food scrap</option>
+            ...
+            <option>Glass bottle/jar cap (un-attached)</option>
+            ...
+            <option>Glass bottle/jar w/ cap attached</option>
+            ...
+            <option>Glass bottle/jar w/o cap attached</option>
+            ...
+            <option>Glass art piece</option>
+            ...
+            <option>Grass clippings/Leaves</option>
+            ...
+            <option>Hardcover book</option>
+            ...
+            <option>High grade paper</option>
+            ...
+            <option>High-density polyethylene (HDPE) plastic</option>
+            ...
+            <option>Large appliance (non-air conditioner/microwave/TV)</option>
+            ...
+            <option>Light bulb</option>
+            ...
+            <option>Low-density polyethylene (LDPE) plastic</option>
+            ...
+            <option>Magazine</option>
+            ...
+            <option>Make-up glass</option>
+            ...
+            <option>Mattress</option>
+            ...
+            <option>Metal name plate (defaced)</option>
+            ...
+            <option>Metal name plate (not defaced)</option>
+            ...
+            <option>Metal pot/pan</option>
+            ...
+            <option>Medicine bottle</option>
+            ...
+            <option>Mirror</option>
+            ...
+            <option>Mirrored glass</option>
+            ...
+            <option>Misc clean aluminum can</option>
+            ...
+            <option>Misc electronic items</option>
+            ...
+            <option>Newsprint/Newspaper</option>
+            ...
+            <option>Oil</option>
+            ...
+            <option>Ovenware</option>
+            ...
+            <option>Packing peanuts</option>
+            ...
+            <option>Plastic/metal drum/bucket</option>
+            ...
+            <option>(Shredded) Paper</option>
+            ...
+            <option>Paper box</option>
+            ...
+            <option>Perfume container</option>
+            ...
+            <option>Personal electronic</option>
+            ...
+            <option>Phone directory or soft-cover book</option>
+            ...
+            <option>Pizza box/paper egg carton (empty)</option>
+            ...
+            <option>Pizza box/paper egg carton (non-empty)</option>
+            ...
+            <option>Plastic bag</option>
+            ...
+            <option>Plastic bottle/jug/jar/tub</option>
+            ...
+            <option>Plastic bottle/jug/jar/tub cap (not attached)</option>
+            ...
+            <option>Plastic bottle/jug/jar/tub w/ cap attached</option>
+            ...
+            <option>Plastic shower curtain/liner</option>
+            ...
+            <option>Plastic straws or utensils</option>
+            ...
+            <option>Plate glass lead glass</option>
+            ...
+            <option>Polyethylene terepthalate (PET) plastic</option>
+            ...
+            <option>Polyvinyl chloride (PVC) plastic</option>
+            ...
+            <option>Printer cartridge</option>
+            ...
+            <option>Pyrex glass</option>
+            ...
+            <option>Recycleable in a plastic bag</option>
+            ...
+            <option>Scrap metal</option>
+            ...
+            <option>Soda can</option>
+            ...
+            <option>Solvent waste distillation</option>
+            ...
+            <option>Sneakers</option>
+            ...
+            <option>Steel/tin can</option>
+            ...
+            <option>Styrofoam/Polystyrene</option>
+            ...
+            <option>Syringe or other medical waste</option>
+            ...
+            <option>Takeaway coffee cup</option>
+            ...
+            <option>Treated wood</option>
+            ...
+            <option>Unwaxed paper and carton</option>
+            ...
+            <option>Vegetative garden material</option>
+            ...
+            <option>Waxed paper and cartons</option>
+            ...
+            <option>Wood waste</option>
+            ...
+            <option>Other</option>
+          </select>
+                <button style="margin-top: 30%" onclick="showResults()">
+            Trash It!
+          </button>
+            </div>
+        </div>
+        <div id="trash-results">
+            <canvas id="canvas" height="375px" width="500px" style="display:none;"></canvas>
+            <button class="back" onClick="resetRecycle()">Home</button>
+            <button id="special" style="display: none;" onClick="window.open('https://www.rochester.edu/sustainability/recycling/other.html', '_blank').focus();">Where do 🌟 items go?</button>
+
+            <button id="disclaimer" style="display: none;" onclick="toggleDisclaimer()">Disclaimer</button>
+            <div id="disclaimer-text" class="smaller-text" style="display: none; margin-bottom: 5%; text-align: center;">The Trash Wizard assumes that all trash is clean. If it's dirty, trash it.</div>
+
+            <div class="text">
+                <span id="trash-phrase">Let's </span><span id="main-location"></span
+          ><span id="trash-phrase-last">it!</span>
+                <span class="text center" id="single-item" style="display: none; text-align: center;">The Wizard is asleep 😔</span>
+            </div>
+            <pre id="results"></pre>
+        </div>
+    </div>
+
+    <!-- Loading screen stuff -->
+    <div id="loader">
+        <span>L</span>
+        <span>o</span>
+        <span>a</span>
+        <span>d</span>
+        <span>i</span>
+        <span>n</span>
+        <span>g</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1041.0.min.js"></script>
+    <script type="text/javascript" src="scripts/webcam-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="scripts/index-min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            console.log("I got here!");
+            $(".Recycleables").select2();
+        });
+
+        $(".Recycleables").select2({
+            width: "0px",
+            maximumSelectionLength: 9 // need to override the changed default
+        });
+        $(".js-programmatic-disable").on("click", function() {
+            $(".Recycleables").prop("disabled", false);
+            $(".Recycleables").prop("disabled", false);
+        });
+
+        $(".js-programmatic-enable").on("click", function() {
+            $(".Recycleables").prop("disabled", true);
+            $(".Recycleables").prop("disabled", true);
+        });
+    </script>
+</body>
+
+</html>

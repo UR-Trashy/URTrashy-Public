@@ -1,0 +1,8 @@
+{
+    "routes": {
+      "/*.html": "index.html"
+    },
+
+    "root":"/app/urtrashy-3.0",
+    "https_only": true
+}

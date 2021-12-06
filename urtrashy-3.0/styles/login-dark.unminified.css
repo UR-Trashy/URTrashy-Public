@@ -1,0 +1,123 @@
+/**
+ * login.css
+ * - Add any styles you want here!
+ */
+
+html {
+  /** gradient moving background: https://www.gradient-animator.com/ **/
+  background: linear-gradient(200deg, #00c7be, #00073a, #003c72, #1a857f);
+  background-size: 2000% 2000%;
+
+  -webkit-animation: AnimationName 15s ease infinite;
+  -moz-animation: AnimationName 15s ease infinite;
+  animation: AnimationName 15s ease infinite;
+
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+h1 {
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 68px;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+
+.sign-in {
+  border-radius: 40px;
+  border-color: #ffffff;
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    rgba(255, 255, 255, 0.3);
+  border-radius: 40px;
+  padding: 15px 75px 15px 75px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  color: rgb(213, 219, 236);
+  border-top: white 2px outset;
+  border-left: white 0.25px outset;
+  border-right: white 0.25px outset;
+  border-bottom: none;
+
+  transition: 0.3s;
+}
+
+.sign-in:hover {
+  border-radius: 40px;
+  border-color: #ffffff;
+  background: #003b71;
+  border-radius: 40px;
+  padding: 15px 75px 15px 75px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  color: white;
+  border-top: white 2px outset;
+  border-left: white 0.25px outset;
+  border-right: white 0.25px outset;
+  border-bottom: none;
+
+  transition: 0.3s;
+}
+
+.sign-in:active {
+  background-color: #012b52;
+  box-shadow: 0 2.5px #666;
+  transform: translateY(1px);
+}
